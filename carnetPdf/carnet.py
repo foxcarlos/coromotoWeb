@@ -142,6 +142,7 @@ class DetrasReportTablePDF:
 
 #######################################################################################
 #delante
+#######################################################################################
 
 class DelanteMyPDF(FPDF):
     def __init__(self, datosPersonal):
@@ -176,7 +177,8 @@ class DelanteMyPDF(FPDF):
 
     def header(self):
         ''' La cabecera toma las variables Globales'''
-        
+
+        self.ficha, self.nombre, self.tipov, self.cedula = self.datosPersonal
         imgBandera = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/img/Bandera.JPG"
         imgFondo = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/img/FONDOCARNET.jpg"
         imgLogo = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/img/HOSPITALC.JPG"
@@ -201,6 +203,8 @@ class DelanteReportTablePDF:
         self.pdf = DelanteMyPDF(self.datosPersonal)
 
     def imprimir(self):
+        #self.ficha, self.nombre, self.tipov, self.cedula = self.pdf.devuelveDatos()
+        
         cabe1 = 'REPUBLICA BOLIVARIANA DE VENEZUELA'
         cabe2 = 'PDV SERVICIOS DE SALUD S.A.'
         cabe3 = 'HOSPITAL'
@@ -229,6 +233,12 @@ class DelanteReportTablePDF:
         self.pdf.output('PRUEBA.PDF','F')  
 
 
-pdf = ReportTablePDF()
-pdf.imprimir()
+nxxMast = CrearNxxmast()
+datos = nxxMast.buscarFicha('11950')
+
+pdfDelante = DelanteReportTablePDF(datos)
+pdfDelante.imprimir()
+
+pdfDetras = DetrasReportTablePDF(datos)
+pdfDetras.imprimir()
 
