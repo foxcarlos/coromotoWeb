@@ -4,9 +4,15 @@ import os
 
 class CrearNxxmast:
     def __init__(self):
-        ''' '''
+        '''La Clase CrearNxxMast esta hecha solo para uso exclusivo
+        del Hospital Coromoto ya que alli es donde se encuentran 
+        los datos de los empleados que se le entregaran los carnet,
+        las tablas que usan estan hechas en VisualFoxPro'''
         
     def dbf2List(self, tabla, parametros=''):
+        '''Consulta las tablas de VFP y devuelve una
+        lista con los datos'''
+
         useTabla = dbf.Table(tabla)
         useTabla.open()
         consulta = 'select * where status == "1"'
@@ -15,6 +21,9 @@ class CrearNxxmast:
         return lista
     
     def tablaNxxmast(self):
+        '''Este metodo hace una union de las diferentes tablas que
+        usan los sistemas del Hospital Coromoto'''
+
         nxxMast = []
         rutaArchivoDbf = '/media/serv_coromoto/Nomina/asencwin/nominaw/ncsmast.dbf'
         rutaArchivoDbf2 = '/media/serv_coromoto/Nomina/asencwin/nominaw/ncmmast.dbf'
@@ -70,6 +79,7 @@ class DetrasMyPDF(FPDF):
         self.datosPersonal = datosPersonal
                 
     def devuelveDatos(self):
+        '''Solo para uso internet'''
         return self.datosPersonal
 
     def footer(self):
@@ -90,6 +100,7 @@ class DetrasMyPDF(FPDF):
         ''' La cabecera toma las variables Globales'''
         
 class DetrasReportTablePDF:
+    '''Clase que permite imprimir la parte trasera del Carnet '''
 
     def __init__(self, datosPersonal):
         '''Parametros recibidos:1, Tipo Lista (ficha, nombre, tipov, cedula)'''
@@ -141,7 +152,7 @@ class DetrasReportTablePDF:
         self.pdf.output('DETRAS.PDF','F')
 
 #######################################################################################
-#delante
+#Apartir de aqui se imprime la parte delantera del Carnet
 #######################################################################################
 
 class DelanteMyPDF(FPDF):
@@ -203,7 +214,8 @@ class DelanteReportTablePDF:
         self.pdf = DelanteMyPDF(self.datosPersonal)
 
     def imprimir(self):
-        #self.ficha, self.nombre, self.tipov, self.cedula = self.pdf.devuelveDatos()
+        ''' Imprime en el carnet los datos del empleado tomandolos 
+        de las variables globales generadas en el metodo buscarFicha()'''
         
         cabe1 = 'REPUBLICA BOLIVARIANA DE VENEZUELA'
         cabe2 = 'PDV SERVICIOS DE SALUD S.A.'
