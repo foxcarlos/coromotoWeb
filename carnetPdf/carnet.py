@@ -233,12 +233,14 @@ class DelanteReportTablePDF:
         self.pdf.output('PRUEBA.PDF','F')  
 
 
-nxxMast = CrearNxxmast()
-datos = nxxMast.buscarFicha('11950')
-
-pdfDelante = DelanteReportTablePDF(datos)
-pdfDelante.imprimir()
-
-pdfDetras = DetrasReportTablePDF(datos)
-pdfDetras.imprimir()
+if __name__ == '__main__':
+    ficha = raw_input('Ingrese el Numero de Ficha:')
+    nxxMast = CrearNxxmast()
+    datos = nxxMast.buscarFicha(ficha)
+    
+    pdfDelante = DelanteReportTablePDF(datos)
+    pdfDelante.imprimir()
+    
+    pdfDetras = DetrasReportTablePDF(datos)
+    pdfDetras.imprimir()
 
