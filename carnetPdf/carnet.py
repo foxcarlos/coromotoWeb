@@ -73,7 +73,7 @@ class DetrasMyPDF(FPDF):
         Se ejecuta el metodo __init__ de la clase DetrasMyPDF()'''
 
         #Se ejecuta el init de la clase Padre
-        FPDF.__init__(self, orientation='P',unit='mm',format=(55,85))
+        FPDF.__init__(self, orientation='P',unit='mm',format=(55,84))
         
         #Se guarda el parametro pasado
         self.datosPersonal = datosPersonal
@@ -87,11 +87,11 @@ class DetrasMyPDF(FPDF):
         la variable Global self.cedula'''
 
         self.ficha, self.nombre, self.tipov, self.cedula = self.datosPersonal
-        ced = '*{0}*'.format(self.cedula)
+        ced = '*{0}*'.format(self.ficha)
 
         #Codigo de Barra        
         self.add_font('ean3', '', r"/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/free3of9/fre3of9x.ttf", uni=True)        
-        self.set_font('ean3', '', 21)
+        self.set_font('ean3', '', 24)
         self.set_text_color(0,0,0)
         self.set_y(-20)
         self.cell(0, 7, ced , align="C")
