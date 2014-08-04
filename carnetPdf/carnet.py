@@ -258,6 +258,7 @@ if __name__ == '__main__':
     pdfDetras = DetrasReportTablePDF(datos)
     pdfDetras.imprimir()
 
+    #Abrir los PDF
     sleep(5)
     url = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/{0}_Detras.PDF".format(ficha)
     url2 = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/{0}_Delante.PDF".format(ficha)
