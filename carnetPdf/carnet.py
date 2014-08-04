@@ -1,6 +1,8 @@
 from fpdf import FPDF
 import dbf
 import os
+import webbrowser
+from time import sleep
 
 class CrearNxxmast:
     def __init__(self):
@@ -149,7 +151,7 @@ class DetrasReportTablePDF:
         self.pdf.cell(0,25, cabe4, 0, 0, 'C')
         self.pdf.ln(2)
 
-        self.pdf.output('DETRAS.PDF','F')
+        self.pdf.output('{0}_Detras.PDF'.format(self.ficha),'F')
 
 #######################################################################################
 #Apartir de aqui se imprime la parte delantera del Carnet
@@ -212,6 +214,7 @@ class DelanteReportTablePDF:
 
         self.datosPersonal = datosPersonal
         self.pdf = DelanteMyPDF(self.datosPersonal)
+        self.ficha, self.nombre, self.tipov, self.cedula = self.datosPersonal
 
     def imprimir(self):
         ''' Imprime en el carnet los datos del empleado tomandolos 
@@ -242,8 +245,7 @@ class DelanteReportTablePDF:
         
         #Imagen de la Foto
         #self.pdf.image(self.imgFoto,15,42,w=25,h=33)
-        self.pdf.output('PRUEBA.PDF','F')  
-
+        self.pdf.output('{0}_Delante.PDF'.format(self.ficha),'F')
 
 if __name__ == '__main__':
     ficha = raw_input('Ingrese el Numero de Ficha:')
@@ -255,4 +257,10 @@ if __name__ == '__main__':
     
     pdfDetras = DetrasReportTablePDF(datos)
     pdfDetras.imprimir()
+
+    sleep(5)
+    url = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/{0}_Detras.PDF".format(ficha)
+    url2 = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/{0}_Delante.PDF".format(ficha)
+    webbrowser.open(url)
+    webbrowser.open(url2)
 
