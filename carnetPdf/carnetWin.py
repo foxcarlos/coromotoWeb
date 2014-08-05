@@ -27,11 +27,11 @@ class CrearNxxmast:
         usan los sistemas del Hospital Coromoto'''
 
         nxxMast = []
-        rutaArchivoDbf = '/media/serv_coromoto/Nomina/asencwin/nominaw/ncsmast.dbf'
-        rutaArchivoDbf2 = '/media/serv_coromoto/Nomina/asencwin/nominaw/ncmmast.dbf'
-        rutaArchivoDbf3 = '/media/serv_coromoto/Nomina/asencwin/nominaw/nepmast.dbf'
-        rutaArchivoDbf4 = '/media/serv_coromoto/Nomina/asencwin/nominaw/nmdmast.dbf'
-        rutaArchivoDbf5 = '/media/serv_coromoto/Nomina/asencwin/nominaw/nnmmast.dbf'
+        rutaArchivoDbf = '//serv_coromoto/SHC/Nomina/asencwin/nominaw/ncsmast.dbf'
+        rutaArchivoDbf2 = '//serv_coromoto/SHC/Nomina/asencwin/nominaw/ncmmast.dbf'
+        rutaArchivoDbf3 = '//serv_coromoto/SHC/Nomina/asencwin/nominaw/nepmast.dbf'
+        rutaArchivoDbf4 = '//serv_coromoto/SHC/Nomina/asencwin/nominaw/nmdmast.dbf'
+        rutaArchivoDbf5 = '//serv_coromoto/SHC/Nomina/asencwin/nominaw/nnmmast.dbf'
     
         cs = self.dbf2List(rutaArchivoDbf)
         nxxMast.extend(cs)
@@ -92,7 +92,7 @@ class DetrasMyPDF(FPDF):
         ced = '*{0}*'.format(self.ficha)
 
         #Codigo de Barra        
-        self.add_font('ean3', '', r"/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/free3of9/fre3of9x.ttf", uni=True)        
+        self.add_font('ean3', '', r"C:\desarrollo\python\coromotoWeb\carnetPdf\free3of9\fre3of9x.ttf", uni=True)        
         self.set_font('ean3', '', 24)
         self.set_text_color(0,0,0)
         self.set_y(-20)
@@ -192,10 +192,10 @@ class DelanteMyPDF(FPDF):
         ''' La cabecera toma las variables Globales'''
 
         self.ficha, self.nombre, self.tipov, self.cedula = self.datosPersonal
-        imgBandera = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/img/Bandera.JPG"
-        imgFondo = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/img/FONDOCARNET.jpg"
-        imgLogo = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/img/HOSPITALC.JPG"
-        imgFoto = '/media/serv_coromoto/NominaShc/FotosE/F00{0}.JPG'.format(str(self.ficha))
+        imgBandera = "C:\desarrollo\python\coromotoWeb\carnetPdf\img\Bandera.JPG"
+        imgFondo = "C:\desarrollo\python\coromotoWeb\carnetPdf\img\FONDOCARNET.jpg"
+        imgLogo = "C:\desarrollo\python\coromotoWeb\carnetPdf\img\HOSPITALC.JPG"
+        imgFoto = '\\serv_coromoto\shc\NominaShc\FotosE\F00{0}.JPG'.format(str(self.ficha))
 
         #Agrego las Imagenes de cabecera
         self.image(imgFondo, 0,11,w=55,h=81)
@@ -260,8 +260,8 @@ if __name__ == '__main__':
 
     #Abrir los PDF
     sleep(5)
-    url = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/{0}_Detras.PDF".format(ficha)
-    url2 = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/{0}_Delante.PDF".format(ficha)
+    url = "C:\desarrollo\python\coromotoWeb\carnetPdf\{0}_Detras.PDF".format(ficha)
+    url2 = "C:\desarrollo\python\coromotoWeb\carnetPdf\{0}_Delante.PDF".format(ficha)
     webbrowser.open(url)
     webbrowser.open(url2)
 
