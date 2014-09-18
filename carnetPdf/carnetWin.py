@@ -205,7 +205,7 @@ class DelanteMyPDF(FPDF):
         if os.path.isfile(imgFoto):
             self.image(imgFoto,15,41,w=25.54,h=29.30)
         else:
-            print('No Existe la Foto')
+            print('No Existe la Foto {0}'.format(imgFoto))
         
         #Imagen del Logo
         self.image(imgLogo,5, 29, w=9, h=12)
