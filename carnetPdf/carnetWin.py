@@ -195,7 +195,7 @@ class DelanteMyPDF(FPDF):
         imgBandera = "C:\desarrollo\python\coromotoWeb\carnetPdf\img\Bandera.JPG"
         imgFondo = "C:\desarrollo\python\coromotoWeb\carnetPdf\img\FONDOCARNET.jpg"
         imgLogo = "C:\desarrollo\python\coromotoWeb\carnetPdf\img\HOSPITALC.JPG"
-        imgFoto = '\\serv_coromoto\shc\NominaShc\FotosE\F00{0}.JPG'.format(str(self.ficha))
+        imgFoto = '\\\serv_coromoto\shc\NominaShc\FotosE\F00{0}.JPG'.format(str(self.ficha))
 
         #Agrego las Imagenes de cabecera
         self.image(imgFondo, 0,11,w=55,h=81)
