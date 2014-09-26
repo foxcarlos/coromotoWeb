@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>pyLoroWeb SMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="/static/bootstrap-3.1.1-dist/css/bootstrap.icon-large.min.css" rel="stylesheet">
+    <link href="/static/font-awesome-4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        body{margin-top:50px;}
+			.glyphicon { margin-right:10px; }
+			.panel-body { padding:0px; }
+			.panel-body table tr td { padding-left: 15px }
+			.panel-body .table {margin-bottom: 0px; }
+	</style>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+   <script src="/static/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 col-md-3">
+            <div class="panel-group" id="accordion">
+<!--  -->
+		  			<div class="panel panel-default">
+            		<div class="panel-heading">
+            			<h4 class="panel-title">
+               			<a data-toggle="collapse" data-parent="#accordion"><span class="glyphicon glyphicon-home">
+                  		</span><a href="/">Inicio</a></a>
+               		</h4>
+            		</div>
+            	</div>           
+<!--  -->
+		  			<div class="panel panel-default">
+            		<div class="panel-heading">
+            			<h4 class="panel-title">
+               			<a data-toggle="collapse" data-parent="#accordion" href="#login"><span class="glyphicon glyphicon-user">
+                  		</span>Login</a> <span class="label label-warning">({{get('usuario', '')}})</span>
+               		</h4>
+            		</div>
+            
+            		<div id="login" class="panel-collapse collapse"> <!-- in -->
+            			<div class="panel-body">
+            				<table class="table">
+            					<tr>
+               					<td>
+                  					<span class="glyphicon glyphicon-log-in"></span><a href="/login">Iniciar Sesion</a>
+                  				</td>
+               				</tr>
+                           <tr>
+                               <td>
+                                   <span class="glyphicon glyphicon-plus"></span><a href="/registro">Crear Usuario Nuevo</a>
+                               </td>
+                                </tr>
+                           <tr>
+                               <td>
+                                   <span class="fa fa-edit"></span><a href="#"> Modificar Usuario</a>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>
+                                   <span class="glyphicon glyphicon-trash text-danger"></span><a href="#" class="text-danger">Eliminar Usuario</a>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>
+                                   <span class="glyphicon glyphicon-eye-open"></span><a href="#">Cambiar Clave</a>
+                               </td>
+                           </tr>
+									<tr>
+               					<td>
+                  					<span class="glyphicon glyphicon-off"></span><a href="/salir">Cerrar Sesion</a>
+                  				</td>
+               				</tr>
+<!--                                 <tr>
+                                    <td>
+                                        <a href="#">Notificaciones</a> <span class="label label-info">5</span>
+                                    </td>
+                                </tr>
+ -->
+               				               				
+            				</table>
+            			</div>
+            		</div>
+        			</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#sms"><span class="glyphicon glyphicon-comment">
+                            </span>SMS</a>
+                        </h4>
+                    </div>
+                    <div id="sms" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-envelope"></span><a href="/smsenviar">Enviar SMS</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-calendar"></span><a href="#">Planificar SMS</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-inbox"></span><a href="#prueba">Borradores</a>
+                                        <span class="badge">42</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#libreta"><span class="glyphicon glyphicon-book">
+                            </span>Libreta</a>
+                        </h4>
+                    </div>
+                    <div id="libreta" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                       <span class="glyphicon glyphicon-phone"></span><a href="/contactoNuevo">Contactos</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="fa fa-group"></span><a href="/grupoNuevo"> Grupos</a>
+                                    </td>
+                                </tr>
+<!--                                 <tr>
+                                    <td>
+                                        <a href="#">Otras 2</a><span class="label label-success">$ 320</span>
+                                    </td>
+                                </tr> -->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-md-9">
+            <div class="well">
+                <h1>
+                    PyLoroWeb SMS</h1>
+                Sistema de envio de Mensajes de Texto
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+</script>
+</body>
+</html>

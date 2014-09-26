@@ -1,0 +1,91 @@
+<!doctype html>
+
+<html>
+  
+  <head>
+    <title>New Page</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  </head>
+  
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Empleados Hospital Coromoto<span class="Three-Dee pull-right">CoromotoWeb</span></h3>
+            </div>
+            <div class="panel-body">
+				  <form id="buscarControl" class="form-horizontal" role="form" action="/llamarPaciente" method="post">              
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label">Nombre</label>
+                        <div class="controls">
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="control-label">Ficha</label>
+                        <div class="controls">
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12">
+                  <div class="btn-group">
+                    <a class="btn btn-danger">Buscar</a><a class="btn btn-warning">Limpiar</a>
+                  </div>
+                </div>
+              </div>
+              </form>
+              <hr>
+              <div class="form-group">
+                <label class="control-label">Nombre</label>
+                <div class="controls">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Apellido</label>
+                <div class="controls">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Cargo</label>
+                <div class="controls">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Departamento</label>
+                <div class="controls">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="btn-toolbar">
+                <div class="btn-group">
+                  <a class="btn btn-primary">Imprimir Frente</a><a class="btn btn-success">Imprimir Detras</a>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <h3 class="panel-title">Hospital Coromoto<span class="Three-Dee pull-right">PDV Servicios de Salud</span></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
