@@ -1,11 +1,13 @@
 import sys
 import dbf
 import bottle
-from bottle import default_app, run, get, post, template
+from bottle import default_app, run, get, post, template, error
 from bottle.ext.websocket import GeventWebSocketServer
 from bottle.ext.websocket import websocket
 from websocket import create_connection
 from carnetPdf import carnet
+from time import sleep
+import webbrowser
 
 users = set()
 
@@ -55,9 +57,34 @@ def buscarEnDbf(control):
     else:
         return []
 
-@get('static/<filename:path>')
-def static(filename): 
-    return bottle.static_file(filename, root='static/')
+
+@error(404)
+def error404(error):
+    return 'Nothing here, sorry'
+
+'''@bottle.route('/download/<filename:path>')
+def download(filename):
+    return bottle.static_file(filename, root='/path/to/static/files', download=filename)
+'''
+
+@bottle.route('/delante')
+def delante():
+    ficha = bottle.request.forms.get('ficha')
+    ficha2 = bottle.request.forms.get('ficha2')
+    nombre2 = bottle.request.forms.get('nombre2')
+    print('ficha',ficha)
+    print('ficha2', ficha2)
+    print('Nombre', nombre2)
+
+    archivo = "{0}_Delante.PDF".format(ficha2)
+    print('archivo', archivo)
+    return bottle.static_file(archivo, root='static/')
+
+@bottle.route('/detras')
+def detras():
+    ficha = bottle.request.forms.get('ficha2')
+    archivo = "{0}_Detras.PDF".format(ficha)
+    return bottle.static_file(archivo, root='static/')
 
 @get('/')
 def index():
@@ -67,11 +94,30 @@ def index():
 def index2():
     return template('CarnetPdfEmpleados')
 
-@post('/buscarCarnet')
-def buscaCarnet(listaFichaCedula):
-    self.listaFichaCedula = listaFichaCedula
-    print(listaFichaCedula)
+@post('/empleados')
+def buscaCarnet():
+    nombre = bottle.request.forms.get('nombre')
+    ficha = bottle.request.forms.get('ficha')
 
+    #self.listaFichaCedula = listaFichaCedula
+    #print(nombre, ficha)
 
+    nxxMast = carnet.CrearNxxmast()
+    datos = nxxMast.buscarFicha(ficha)
+    ficha, apellido, nombre, tipov, cedula, cargo, departamento = datos
+    
+    '''pdfDelante = carnet.DelanteReportTablePDF(datos)
+    pdfDelante.imprimir()
+    
+    pdfDetras = carnet.DetrasReportTablePDF(datos)
+    pdfDetras.imprimir()
 
-run(host='127.0.0.1', port=8080, server=GeventWebSocketServer)
+    #Abrir los PDF
+    sleep(5)
+    url = "/home/cgarcia/desarrollo/python/coromotoWeb/{0}_Detras.PDF".format(ficha)
+    url2 = "/home/cgarcia/desarrollo/python/coromotoWeb/{0}_Delante.PDF".format(ficha)
+    webbrowser.open(url)
+    webbrowser.open(url2)'''
+    return template('CarnetPdfEmpleados', {'ficha':ficha, 'nombre':nombre, 'apellido':apellido, 'cargo':cargo, 'departamento':departamento})
+
+run(host='0.0.0.0', port=8080, server=GeventWebSocketServer)

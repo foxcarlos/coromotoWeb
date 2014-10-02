@@ -21,7 +21,40 @@ class CrearNxxmast:
         busqueda = useTabla.query(consulta)
         lista = [reg for reg in busqueda]
         return lista
-    
+
+    def joinCargo(self, tabla, cargo):
+        '''Consulta las tablas de VFP y devuelve una
+        lista con los datos'''
+        
+        self.cargo = cargo
+
+        useTabla = dbf.Table(tabla)
+        useTabla.open()
+        consulta = 'select * where cargo == {0}'.format(self.cargo)
+        busqueda = useTabla.query(consulta)
+        listaCargo = [reg[1] for reg in busqueda]
+        cargo = ''.join(listaCargo)
+        return cargo
+
+    def joinDepto(self, locald, deptto, seccio):
+        '''Consulta las tablas de VFP y devuelve una
+        lista con los datos'''
+        
+        self.locald = locald.strip()
+        self.deptto = deptto.strip()
+        self.seccio = seccio.strip()
+        
+        rutaArchivoDbfDpto = '/media/serv_coromoto/Nomina/asencwin/nominaw/nomnomb.dbf'
+        useTabla = dbf.Table(rutaArchivoDbfDpto)
+        useTabla.open()
+
+        consulta = 'select * where locald.strip() == "{0}" and deptto.strip() == "{1}" and seccio.strip() == "{2}"'.format(self.locald, self.deptto, self.seccio)
+
+        busqueda = useTabla.query(consulta)
+        listaDpto = [reg[3] for reg in busqueda]
+        charDpto = ''.join(listaDpto)
+        return charDpto
+
     def tablaNxxmast(self):
         '''Este metodo hace una union de las diferentes tablas que
         usan los sistemas del Hospital Coromoto'''
@@ -55,18 +88,35 @@ class CrearNxxmast:
         ficha pasada como parametro'''
 
         self.fichaBuscar = ficha
-        self.ficha = '00000'
-        self.nombre = 'DESCONOCIDO,'
-        self.tipov = 'X'
-        self.cedula = 0
+        ficha = '00000'
+        nombre = 'DESCONOCIDO,'
+        nombre1 = ''
+        apellido = ''
+        tipov = 'X'
+        cedula = 0
+        cargo = ''
+        dpto = ''
         
         reg = self.tablaNxxmast()
         for f in reg:            
             if  f[1] == self.fichaBuscar:
-                self.ficha, self.nombre, self.tipov, self.cedula = f[1], f[2], f[3], f[4]
-                print(self.ficha, self.nombre, self.tipov, self.cedula)
-        
-        return self.ficha, self.nombre, self.tipov, self.cedula
+                ficha = f[1]
+                nombre = f[2]
+                tipov = f[3]
+                cedula = f[4]
+                idCargo = f[29]
+                idDptoLocald = f[32]
+                idDptoDeptto = f[33]
+                idDptoSeccio = f[34]
+                
+                rutaArchivoDbf6 = '/media/serv_coromoto/Nomina/asencwin/nominaw/nomcarg.dbf'
+                
+                cargo = self.joinCargo(rutaArchivoDbf6, idCargo)
+                dpto = self.joinDepto(idDptoLocald, idDptoDeptto, idDptoSeccio)
+
+                apellido, nombre1 = nombre.split(',')
+                print(ficha, nombre1, apellido, tipov, cedula, cargo, dpto)
+        return ficha, nombre1, apellido, tipov, cedula, cargo, dpto
 
     
 class DetrasMyPDF(FPDF):

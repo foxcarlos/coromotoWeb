@@ -13,7 +13,7 @@
    function validar(){
       var nficha = document.getElementById('ficha2').value;
       alert(nficha);    	 
-      /*document.getElementById('botonImprimirFrente').click();*/
+      document.getElementById('botonImprimirFrente').click();
    }
 	</script>
 	
@@ -96,7 +96,7 @@
               </div>				                
               <div class="btn-toolbar">
                 <div class="btn-group">
-                  <a id = "botonImprimirFrente" href="/delante" class="btn btn-primary" onclick="validar()" >Imprimir Frente</a><a class="btn btn-success">Imprimir Detras</a>                                    
+                  <a id = "botonImprimirFrente" href="/delante" class="btn btn-primary">Imprimir Frente</a><a class="btn btn-success">Imprimir Detras</a>                                    
                 </div>
               </div>
             </div>
