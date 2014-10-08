@@ -3,6 +3,7 @@ import dbf
 import os
 import webbrowser
 from time import sleep
+import shutil
 
 class CrearNxxmast:
     def __init__(self):
@@ -138,7 +139,7 @@ class DetrasMyPDF(FPDF):
         ''' Pie de Pagina, obtiene la cedula de 
         la variable Global self.cedula'''
 
-        self.ficha, self.nombre, self.tipov, self.cedula = self.datosPersonal
+        self.ficha, self.nombre, self.apellido, self.tipov, self.cedula, cargo, departamento = self.datosPersonal
         ced = '*{0}*'.format(self.ficha)
 
         #Codigo de Barra        
@@ -164,7 +165,7 @@ class DetrasReportTablePDF:
         ''' Imprime en el carnet los datos del empleado tomandolos 
         de las variables globales generadas en el metodo buscarFicha()'''
 
-        self.ficha, self.nombre, self.tipov, self.cedula = self.pdf.devuelveDatos()
+        self.ficha, self.nombre, self.apellido, self.tipov, self.cedula, cargo, departamento = self.pdf.devuelveDatos()
         ficha = self.ficha
         cedula = self.cedula
 
@@ -201,7 +202,7 @@ class DetrasReportTablePDF:
         self.pdf.cell(0,25, cabe4, 0, 0, 'C')
         self.pdf.ln(2)
 
-        self.pdf.output('{0}_Detras.PDF'.format(self.ficha),'F')
+        self.pdf.output('static/file/carnets/{0}_Detras.PDF'.format(self.ficha),'F')
 
 #######################################################################################
 #Apartir de aqui se imprime la parte delantera del Carnet
@@ -225,11 +226,11 @@ class DelanteMyPDF(FPDF):
         ''' Pie de Pagina, obtiene el nombre y el apellido de 
         la variable Global self.nombre'''
 
-        self.ficha, self.nombre, self.tipov, self.cedula = self.datosPersonal
+        self.ficha, self.apellido, self.nombre, self.tipov, self.cedula, cargo, departamento = self.datosPersonal
        
-        NyA = self.nombre.split(',')
-        apellidos = NyA[0].strip()
-        nombres = NyA[1].strip()
+        #NyA = self.nombre.split(',')
+        apellidos = self.apellido  # NyA[0].strip()
+        nombres = self.nombre  # NyA[1].strip()
         
         #Agrego Nombre del Empleado y lo ubico en el pie de pagina
         self.set_font('Arial', 'B', 10)
@@ -241,7 +242,7 @@ class DelanteMyPDF(FPDF):
     def header(self):
         ''' La cabecera toma las variables Globales'''
 
-        self.ficha, self.nombre, self.tipov, self.cedula = self.datosPersonal
+        self.ficha, self.nombre, self.apellido, self.tipov, self.cedula, self.cargo, self.departamento = self.datosPersonal
         imgBandera = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/img/Bandera.JPG"
         imgFondo = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/img/FONDOCARNET.jpg"
         imgLogo = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/img/HOSPITALC.JPG"
@@ -254,6 +255,9 @@ class DelanteMyPDF(FPDF):
         #Imagen de la Foto, solo se agrega si existe la imagen
         if os.path.isfile(imgFoto):
             self.image(imgFoto,15,41,w=25.54,h=29.30)
+            #rutaDesde = ''
+            #archivoHasta = ''
+            #shutil.copy(rutaDesde, archivoHasta)
         
         #Imagen del Logo
         self.image(imgLogo,5, 29, w=9, h=12)
@@ -264,7 +268,7 @@ class DelanteReportTablePDF:
 
         self.datosPersonal = datosPersonal
         self.pdf = DelanteMyPDF(self.datosPersonal)
-        self.ficha, self.nombre, self.tipov, self.cedula = self.datosPersonal
+        self.ficha, self.apellido, self.nombre, self.tipov, self.cedula, cargo, departamento = self.datosPersonal
 
     def imprimir(self):
         ''' Imprime en el carnet los datos del empleado tomandolos 
@@ -295,7 +299,7 @@ class DelanteReportTablePDF:
         
         #Imagen de la Foto
         #self.pdf.image(self.imgFoto,15,42,w=25,h=33)
-        self.pdf.output('{0}_Delante.PDF'.format(self.ficha),'F')
+        self.pdf.output('static/file/carnets/{0}_Delante.PDF'.format(self.ficha),'F')
 
 if __name__ == '__main__':
     ficha = raw_input('Ingrese el Numero de Ficha:')

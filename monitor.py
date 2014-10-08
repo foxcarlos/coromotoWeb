@@ -8,6 +8,7 @@ from websocket import create_connection
 from carnetPdf import carnet
 from time import sleep
 import webbrowser
+import os
 
 users = set()
 
@@ -60,64 +61,67 @@ def buscarEnDbf(control):
 
 @error(404)
 def error404(error):
-    return 'Nothing here, sorry'
+    return 'Error no se consiguio la pagina'
 
 '''@bottle.route('/download/<filename:path>')
 def download(filename):
     return bottle.static_file(filename, root='/path/to/static/files', download=filename)
 '''
 
-@bottle.route('/delante')
-def delante():
-    ficha = bottle.request.forms.get('ficha')
-    ficha2 = bottle.request.forms.get('ficha2')
-    nombre2 = bottle.request.forms.get('nombre2')
-    print('ficha',ficha)
-    print('ficha2', ficha2)
-    print('Nombre', nombre2)
+@get('/static/<filename:path>')
+def static(filename): 
+    return bottle.static_file(filename, root='static/')
 
+@bottle.route('/delante/<ficha>')
+def delante(ficha='desconocido'):
+    ficha2 = ficha   
     archivo = "{0}_Delante.PDF".format(ficha2)
-    print('archivo', archivo)
-    return bottle.static_file(archivo, root='static/')
+    return bottle.static_file(archivo, root='static/file/carnets/')
 
-@bottle.route('/detras')
-def detras():
-    ficha = bottle.request.forms.get('ficha2')
-    archivo = "{0}_Detras.PDF".format(ficha)
-    return bottle.static_file(archivo, root='static/')
+@bottle.route('/detras/<ficha>')
+def detras(ficha='desconocido'):
+    ficha2 = ficha   
+    archivo = "{0}_Detras.PDF".format(ficha2)
+    return bottle.static_file(archivo, root='static/file/carnets/')
 
 @get('/')
 def index():
     return template('index')
 
 @get('/empleados')
-def index2():
+def empleados():
     return template('CarnetPdfEmpleados')
 
 @post('/empleados')
-def buscaCarnet():
+def buscaCedulaFicha():
+    fotoImg = ''
+    rutaFotosE = 'static/file/fotose'
+
     nombre = bottle.request.forms.get('nombre')
     ficha = bottle.request.forms.get('ficha')
-
-    #self.listaFichaCedula = listaFichaCedula
-    #print(nombre, ficha)
-
+    
     nxxMast = carnet.CrearNxxmast()
     datos = nxxMast.buscarFicha(ficha)
     ficha, apellido, nombre, tipov, cedula, cargo, departamento = datos
     
-    '''pdfDelante = carnet.DelanteReportTablePDF(datos)
+    #Permite buscar el archivo de a foto del Empleado
+    #para devolver su nombre real
+    listaArchivo = os.listdir(rutaFotosE)
+    for f in listaArchivo:
+        if ficha in f:
+            fotoImg = f
+
+    foto = os.path.join(rutaFotosE, fotoImg)
+    if not os.path.isfile(foto):
+        foto = ''
+    
+    print(foto)
+    pdfDelante = carnet.DelanteReportTablePDF(datos)
     pdfDelante.imprimir()
     
     pdfDetras = carnet.DetrasReportTablePDF(datos)
     pdfDetras.imprimir()
 
-    #Abrir los PDF
-    sleep(5)
-    url = "/home/cgarcia/desarrollo/python/coromotoWeb/{0}_Detras.PDF".format(ficha)
-    url2 = "/home/cgarcia/desarrollo/python/coromotoWeb/{0}_Delante.PDF".format(ficha)
-    webbrowser.open(url)
-    webbrowser.open(url2)'''
-    return template('CarnetPdfEmpleados', {'ficha':ficha, 'nombre':nombre, 'apellido':apellido, 'cargo':cargo, 'departamento':departamento})
+    return template('CarnetPdfEmpleados', {'ficha':ficha, 'nombre':nombre, 'apellido':apellido, 'cargo':cargo, 'departamento':departamento, 'foto':foto})
 
 run(host='0.0.0.0', port=8080, server=GeventWebSocketServer)

@@ -9,24 +9,40 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     
-   <script type="text/javascript">
-   function validar(){
+	<script type="text/javascript">
+	
+	window.onload = function(){
+		document.getElementById("BotonDelante").onclick = clicBotonDelante;		 	
+	}
+
+   function clicBotonDelante(){
       var nficha = document.getElementById('ficha2').value;
-      alert(nficha);    	 
-      /*document.getElementById('botonImprimirFrente').click();*/
+		if (nficha.length == 0 || nficha == '00000'){
+			alert('Ficha y Cedula debe contener datos')
+			var enlace3 = document.getElementById('BotonDelante').href='/empleados'			
+		}
+		else{      
+      	var enlaceNuevo = "/delante/"+nficha
+			
+			//Abre el enlace en una nueva pagina       
+      	var enlace2 = document.getElementById('BotonDelante').target="_blank"
+      	
+      	//Cambia el Enlace a la nueva ficha
+      	var enlace3 = document.getElementById('BotonDelante').href=enlaceNuevo
+      }     
    }
 	</script>
 	
   </head>
   
   <body>
-  <audio id="miAudio" src="../static/file/campana.mp3" preload="auto"></audio>
-    <div class="container">
+    <div class="container">      
       <div class="row">
         <div class="col-lg-12">
           <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Empleados Hospital Coromoto<span class="Three-Dee pull-right">CoromotoWeb</span></h3>
+            <div class="panel-heading">              
+              <img src="/static/file/img/Logosmall.bmp" width="30%" height="5%" alt="Hospital Coromoto" longdesc="Hospital Coromoto" />
+              <h3 class="panel-title">RRHH Hospital Coromoto<span class="Three-Dee pull-right">CoromotoWeb</span></h3>
             </div>
             <div class="panel-body">
 				  <form id="buscarCarnet" class="form" role="form" action="/empleados" method="post">              
@@ -35,7 +51,7 @@
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label class="control-label">Nombre</label>
+                        <label class="control-label">Cedula</label>
                         <div class="controls">
                           <input id="nombre" name="nombre" type="text" class="form-control">
                         </div>
@@ -49,14 +65,15 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-xs-offset-10">
+                        <img id="foto" name="foto" src="{{get('foto', '/static/file/img/placeholder-100x100.gif')}}" class="img-polaroid" width="150" height="120">
+                    </div>
                   </div>
                 </div>
                 <div class="col-xs-12">
                   <div class="btn-group">
-                    <!-- <a class="btn btn-danger" type="submit" >Buscar</a><a class="btn btn-warning" type="reset">Limpiar</a>-->
                     <button id="submitBuscarControl" type="submit" class="btn btn-danger">Buscar</button>
                     <button id="submitBuscarControl" type="reset" class="btn btn-warning">Limpiar</button>
-                    <a href="/delante" class="btn btn-primary">Imprimir Frente</a>
                   </div>
                 </div>
               </div>
@@ -96,7 +113,8 @@
               </div>				                
               <div class="btn-toolbar">
                 <div class="btn-group">
-                  <a id = "botonImprimirFrente" href="/delante" class="btn btn-primary" onclick="validar()" >Imprimir Frente</a><a class="btn btn-success">Imprimir Detras</a>                                    
+						<a href="/delante" name="BotonDelante" class="btn btn-primary" id="BotonDelante">Imprimir Delante</a>
+						<a href="/detras" name="BotonDetras" class="btn btn-success" id="BotonDetras">Imprimir Detras</a>
                 </div>
               </div>
             </div>
