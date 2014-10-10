@@ -39,7 +39,7 @@
 			var enlace3 = document.getElementById('BotonDetras').href='/empleados'			
 		}
 		else{      
-      	var enlaceNuevo = "/detras/"+nficha
+      	var enlaceNuevo = "/delante/"+nficha
 			
 			//Abre el enlace en una nueva pagina       
       	var enlace2 = document.getElementById('BotonDetras').target="_blank"

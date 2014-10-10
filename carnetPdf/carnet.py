@@ -3,7 +3,6 @@ import dbf
 import os
 import webbrowser
 from time import sleep
-import shutil
 
 class CrearNxxmast:
     def __init__(self):
@@ -143,7 +142,8 @@ class DetrasMyPDF(FPDF):
         ced = '*{0}*'.format(self.ficha)
 
         #Codigo de Barra        
-        self.add_font('ean3', '', r"/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/free3of9/fre3of9x.ttf", uni=True)        
+        #self.add_font('ean3', '', r"static/file/free3of9/fre3of9x.ttf", uni=True)
+        self.add_font('ean3', '', r"carnetPdf/free3of9/fre3of9x.ttf", uni=True)
         self.set_font('ean3', '', 24)
         self.set_text_color(0,0,0)
         self.set_y(-20)
@@ -243,9 +243,9 @@ class DelanteMyPDF(FPDF):
         ''' La cabecera toma las variables Globales'''
 
         self.ficha, self.nombre, self.apellido, self.tipov, self.cedula, self.cargo, self.departamento = self.datosPersonal
-        imgBandera = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/img/Bandera.JPG"
-        imgFondo = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/img/FONDOCARNET.jpg"
-        imgLogo = "/home/cgarcia/desarrollo/python/coromotoWeb/carnetPdf/img/HOSPITALC.JPG"
+        imgBandera = "carnetPdf/img/Bandera.JPG"
+        imgFondo = "carnetPdf/img/FONDOCARNET.jpg"
+        imgLogo = "carnetPdf/img/HOSPITALC.JPG"
         imgFoto = '/media/serv_coromoto/NominaShc/FotosE/F00{0}.JPG'.format(str(self.ficha))
 
         #Agrego las Imagenes de cabecera
