@@ -5,21 +5,44 @@
     <title>Impresion de Carnet de Empleados</title>
     <meta name="viewport" content="width=device-width">
 
-	 <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" />
-	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-	 <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
-	       
+	 
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/js/bootstrap.min.js"></script> 	 
+	 	       
 	<script type="text/javascript">
-	
+		
 	window.onload = function(){
 		document.getElementById("BotonDelante").onclick = clicBotonDelante;
 		document.getElementById("BotonDetras").onclick = clicBotonDetras;
+		document.getElementById("foto").onclick = clicEnFoto;
 		actualizarCampos();
-		
+		document.getElementById("archivoSeleccionado").onchange = clicEnSeleccionArchivo;		
+		document.getElementById("botonModalCerrar").onclick = clicBotonModalCerrar;
+		document.getElementById("botonModalGuardar").onclick = clicBotonModalGuardar;
 	}
 
+	function clicBotonModalGuardar(){
+	alert('Click')
+	document.getElementById("modalSubirFoto").onsubmit()		
+	}
+		
+	function clicBotonModalCerrar(){
+		alert('Hola');
+	}
+	
+	function clicEnSeleccionArchivo(){
+		var rutaImg = document.getElementById("archivoSeleccionado").value;
+		var fic = rutaImg.split('\\');
+		nombreArchivo = fic[fic.length-1]; 
+	}
+	
+	function clicEnFoto(){
+		$("#editarFoto").modal('show');
+	}
+	
 	function actualizarCampos(){
-		document.getElementById("foto").src="{{get('foto', '/static/file/img/placeholder-100x100.gif')}}"
+		document.getElementById("foto").src="{{get('foto', '/static/file/img/placeholder-100x100.gif')}}"		
 		document.getElementById('ficha2').value="{{get('ficha', '')}}"
 		document.getElementById('nombre2').value="{{get('nombre', '')}}"
 		document.getElementById('apellido').value="{{get('apellido', '')}}"
@@ -61,15 +84,31 @@
       	var enlace3 = document.getElementById('BotonDetras').href=enlaceNuevo
       }     
    }
-	</script>  
+	</script>
+	
+	<!-- Cambiarle el Color a la cabecera del Panel a ROJO -->	
+	<style type="text/css">
+		.panel-default > .panel-heading {
+		color: #FFFFFF;
+  		background-color: #AF1515;
+  		border-color: #AF1515;
+		}
+		
+		.modal-content > .modal-header {
+		color: #FFFFFF;
+  		background-color: #AF1515;
+  		border-color: #AF1515;
+		}
+	</style>
+	
   </head>
   
-  <body>
-    <div class="container">      
+  <body> 
+    <div class="container">  
       <div class="row">
         <div class="col-lg-12">
         	<img src="/static/file/img/Logosmall.bmp" width="30%" height="5%" alt="Hospital Coromoto" longdesc="Hospital Coromoto" />
-          <div class="panel panel-rojo">
+          <div class="panel panel-default">
             <div class="panel-heading">              
               		<center>								
                   <h1 id = "cabeceraRoja" style="font-weight:bold;font-size:20px;text-shadow: 5px 5px 5px #1A1A1A;">Carnet Empleados</h1>
@@ -98,7 +137,7 @@
                       </div>
                     </div>
                     <div class="col-xs-offset-10">                        
-                        <img id="foto" name="foto" class="img-circle" width="120" height="120">
+                        <img id="foto" href="#" name="foto" class="img-circle" width="120" height="120">
                     </div>
                   </div>
                 </div>
@@ -149,15 +188,53 @@
 							<a href="/delante" name="BotonDelante" class="btn btn-primary" id="BotonDelante">Imprimir Delante</a>
 							<a href="/detras" name="BotonDetras" class="btn btn-success" id="BotonDetras">Imprimir Detras</a>
                 	</div>
-              </div>
+              </div>				                           
             </div>
             <div class="panel-footer">
               <h3 class="panel-title">Hospital Coromoto <span class="Three-Dee pull-right">PDV Servicios de Salud</span></h3>
             </div>
-          </div>
+          </div>            
         </div>
-      </div>
+      </div>           
     </div>
+	 
+	 <!-- Modal HTML -->
+    <div id="editarFoto" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <form id="modalSubirFoto" class="form" role="form" action="/upload" method="post" enctype="multipart/form-data">
+            	<div class="modal-header">
+               	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Cambiar Foto</h4>
+               </div>
+               
+               <div class="modal-body">                                   
+           				<div class="row">
+              				<div class="col-md-12">									                				
+                				<div class="form-group">
+                  				<label class="control-label">Seleccione la Imagen</label>
+                  				<div class="controls">
+                    					<input name="archivoSeleccionado" id="archivoSeleccionado" type="file" class="form-control">
+                  				</div>
+                				</div>
+              				</div>
+              				
+              				<!-- <div class="col-md-4">
+                				<img src="/static/file/img/placeholder-100x100.gif" class="img-circle" id="fotoModal">
+              				</div> -->
+            	  		</div>
+          			
+               </div>
+               
+               <div class="modal-footer">
+               	<button id="botonModalCerrar" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                  <button id="botonModalGuardar" type="submit" class="btn btn-primary">Guardar</button>
+               </div>
+               </form>
+            </div>
+        </div>
+    </div>
+    <!-- END Modal HTML -->        
   </body>
 
 </html>

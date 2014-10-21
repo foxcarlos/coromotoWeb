@@ -1,6 +1,6 @@
 import sys
 import bottle
-from bottle import default_app, run, get, post, template, error
+from bottle import default_app, run, get, post, template, error, route
 from bottle.ext.websocket import GeventWebSocketServer
 from bottle.ext.websocket import websocket
 from carnetPdf import carnet
@@ -14,9 +14,32 @@ users = set()
 def error404(error):
     return 'Error no se consiguio la pagina'
 
+@route('/download/<filename:path>')
+def download(filename):
+        return bottle.static_file(filename, root='static/', download=filename)
+
+@route('/foto')
+def subirFoto():
+    return template('upload4')
+
 @get('/static/<filename:path>')
 def static(filename): 
     return bottle.static_file(filename, root='static/')
+
+@route('/upload', method='POST')
+def do_upload():
+    #category   = request.forms.get('category')
+    upload     = bottle.request.files.get('archivoSeleccionado')
+    print(upload.filename)
+    name, ext = os.path.splitext(upload.filename)
+    if ext not in ('.png','.jpg','.jpeg'):
+        return 'File extension not allowed.'
+    
+    file_path = "{path}/{file}".format(path='static/file', file=upload.filename)
+    #upload.save('/static/') # appends upload.filename automatically
+    with open(file_path, 'w') as open_file:
+        open_file.write(upload.file.read())
+    return 'OK'
 
 @bottle.route('/delante/<ficha>')
 def delante(ficha='desconocido'):
@@ -32,7 +55,7 @@ def detras(ficha='desconocido'):
 
 @get('/')
 def index():
-    return template('index')
+    return template('menu')
 
 @get('/empleados')
 def empleados():
