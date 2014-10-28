@@ -35,7 +35,7 @@ def do_upload():
     if ext not in ('.png','.jpg','.jpeg'):
         return 'File extension not allowed.'
     
-    file_path = "{path}/{file}".format(path='static/file', file=upload.filename)
+    file_path = "{path}/{file}".format(path='static/file/fotose', file=upload.filename)
     #upload.save('/static/') # appends upload.filename automatically
     with open(file_path, 'w') as open_file:
         open_file.write(upload.file.read())
@@ -81,6 +81,7 @@ def buscaCedulaFicha():
             fotoImg = f
 
     foto = os.path.join(rutaFotosE, fotoImg)
+    print(foto)
     if not os.path.isfile(foto):
         foto = ''
     

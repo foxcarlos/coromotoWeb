@@ -18,17 +18,17 @@
 		document.getElementById("foto").onclick = clicEnFoto;
 		actualizarCampos();
 		document.getElementById("archivoSeleccionado").onchange = clicEnSeleccionArchivo;		
-		document.getElementById("botonModalCerrar").onclick = clicBotonModalCerrar;
-		document.getElementById("botonModalGuardar").onclick = clicBotonModalGuardar;
+		//document.getElementById("botonModalCerrar").onclick = clicBotonModalCerrar;
+		//document.getElementById("botonModalGuardar").onclick = clicBotonModalGuardar;
 	}
 
 	function clicBotonModalGuardar(){
-	alert('Click')
+	//alert('Click')
 	document.getElementById("modalSubirFoto").onsubmit()		
 	}
 		
 	function clicBotonModalCerrar(){
-		alert('Hola');
+		//alert('Hola');
 	}
 	
 	function clicEnSeleccionArchivo(){
@@ -48,7 +48,6 @@
 		document.getElementById('apellido').value="{{get('apellido', '')}}"
 		document.getElementById('cargo').value="{{get('cargo', '')}}"
 		document.getElementById('departamento').value="{{get('departamento', '')}}"
-		
 	}
 	
    function clicBotonDelante(){
@@ -227,7 +226,7 @@
                </div>
                
                <div class="modal-footer">
-               	<button id="botonModalCerrar" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+               	<button id="botonModalCerrar" type="reset" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                   <button id="botonModalGuardar" type="submit" class="btn btn-primary">Guardar</button>
                </div>
                </form>
