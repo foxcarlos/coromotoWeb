@@ -8,6 +8,7 @@ from time import sleep
 import webbrowser
 import os
 
+
 users = set()
 
 @error(404)
@@ -63,6 +64,8 @@ def empleados():
 
 @post('/empleados')
 def buscaCedulaFicha():
+    ''''Busca Ficha por Empleados'''
+    
     fotoImg = ''
     rutaFotosE = 'static/file/fotose'
 
@@ -93,4 +96,4 @@ def buscaCedulaFicha():
 
     return template('CarnetPdfEmpleados', {'ficha':ficha, 'nombre':nombre, 'apellido':apellido, 'cargo':cargo, 'departamento':departamento, 'foto':foto})
 
-run(host='0.0.0.0', port=8080, server=GeventWebSocketServer)
+run(host='0.0.0.0', port=8080, server=GeventWebSocketServer, reload = True)
