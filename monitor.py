@@ -8,12 +8,11 @@ from time import sleep
 import webbrowser
 import os
 
-
 users = set()
 
 @error(404)
 def error404(error):
-    return 'Error no se consiguio la pagina'
+    return "Error no se consiguio la pagina"
 
 @route('/download/<filename:path>')
 def download(filename):
@@ -24,7 +23,7 @@ def subirFoto():
     return template('upload4')
 
 @get('/static/<filename:path>')
-def static(filename): 
+def static(filename):
     return bottle.static_file(filename, root='static/')
 
 @route('/upload', method='POST')
@@ -35,7 +34,7 @@ def do_upload():
     name, ext = os.path.splitext(upload.filename)
     if ext not in ('.png','.jpg','.jpeg'):
         return 'File extension not allowed.'
-    
+
     file_path = "{path}/{file}".format(path='static/file/fotose', file=upload.filename)
     #upload.save('/static/') # appends upload.filename automatically
     with open(file_path, 'w') as open_file:
@@ -44,13 +43,13 @@ def do_upload():
 
 @bottle.route('/delante/<ficha>')
 def delante(ficha='desconocido'):
-    ficha2 = ficha   
+    ficha2 = ficha
     archivo = "{0}_Delante.PDF".format(ficha2)
     return bottle.static_file(archivo, root='static/file/carnets/')
 
 @bottle.route('/detras/<ficha>')
 def detras(ficha='desconocido'):
-    ficha2 = ficha   
+    ficha2 = ficha
     archivo = "{0}_Detras.PDF".format(ficha2)
     return bottle.static_file(archivo, root='static/file/carnets/')
 
@@ -62,20 +61,24 @@ def index():
 def empleados():
     return template('CarnetPdfEmpleados')
 
+@get('/nempleados')
+def empleados():
+    return template('CarnetPdfEmpleados')
+
 @post('/empleados')
 def buscaCedulaFicha():
     ''''Busca Ficha por Empleados'''
-    
+
     fotoImg = ''
     rutaFotosE = 'static/file/fotose'
 
     nombre = bottle.request.forms.get('nombre')
     ficha = bottle.request.forms.get('ficha')
-    
+
     nxxMast = carnet.CrearNxxmast()
     datos = nxxMast.buscarFicha(ficha)
     ficha, apellido, nombre, tipov, cedula, cargo, departamento = datos
-    
+
     #Permite buscar el archivo de a foto del Empleado
     #para devolver su nombre real
     listaArchivo = os.listdir(rutaFotosE)
@@ -87,10 +90,10 @@ def buscaCedulaFicha():
     print(foto)
     if not os.path.isfile(foto):
         foto = ''
-    
+
     pdfDelante = carnet.DelanteReportTablePDF(datos)
     pdfDelante.imprimir()
-    
+
     pdfDetras = carnet.DetrasReportTablePDF(datos)
     pdfDetras.imprimir()
 
