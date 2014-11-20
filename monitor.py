@@ -64,7 +64,8 @@ def empleados():
 @get('/noempleados')
 def noEmpleados():
     valorPanelCabeceraTitulo = 'Carnet para No Empleados'
-    return template('noEmpleados', {'panelCabeceraTitulo':valorPanelCabeceraTitulo})
+    rutaImagenCabecera = "/static/file/img/Logosmall.bmp"
+    return template('noEmpleados', {'panelCabeceraTitulo':valorPanelCabeceraTitulo, 'imagenCabecera':rutaImagenCabecera})
 
 @post('/empleados')
 def buscaCedulaFicha():
