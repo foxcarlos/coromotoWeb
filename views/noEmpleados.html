@@ -1,0 +1,185 @@
+<!doctype html>
+
+<html>
+  
+  <head>
+    <title>Carnet para no Empleados</title>
+    <meta name="viewport" content="width=device-width">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	 <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	 
+	 <script type="text/javascript">
+	 window.onload = function(){
+	 	cambiarPanelCabecera()
+	 }
+	 	
+	 	function cambiarPanelCabecera(){	 		
+			document.getElementById('H1PanelCabeceraRoja').innerHTML='{{get('panelCabeceraTitulo', '')}}';	 		
+	 		document.getElementById('H1PanelCabeceraRoja').style.fontWeight = "bold";
+			document.getElementById('H1PanelCabeceraRoja').style.fontSize = "20px";	 		 
+	 		document.getElementById('H1PanelCabeceraRoja').style.textShadow = "5px 5px 5px #1A1A1A";
+	 		
+	 		
+	 	} 
+	 </script>
+	 
+	 
+	 <!-- Cambiarle el Color a la cabecera del Panel a ROJO -->	
+	<style type="text/css">
+		.panel-default > .panel-heading {
+		color: #FFFFFF;
+  		background-color: #AF1515;
+  		border-color: #AF1515;
+		}
+		
+		.modal-content > .modal-header {
+		color: #FFFFFF;
+  		background-color: #AF1515;
+  		border-color: #AF1515;
+		}
+	</style>
+  </head>
+  
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <img src="https://builder.divshot.com/img/placeholder-100x100.gif" id="imagenCabecera">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading" centered-text>
+              <h1 id="H1PanelCabeceraRoja">Panel Cabecera</h1>
+            </div>
+            <div class="panel-body">
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-lg-2">Id</label>
+                      <div class="col-lg-10">
+                        <div class="controls">
+                          <input type="text" class="form-control" name="id" id="id">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-lg-2">Cedula</label>
+                      <div class="col-lg-10">
+                        <div class="controls">
+                          <input type="text" class="form-control" placeholder="Ingrese la Cedula de Identidad Ej: 9796220" name="cedula" id="cedula">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-lg-2">Nombre</label>
+                      <div class="col-lg-10">
+                        <div class="controls">
+                          <input type="text" class="form-control" placeholder="Ingrese el Nombre" name="nombre" id="nombre">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-lg-2">Apellido</label>
+                      <div class="col-lg-10">
+                        <div class="controls">
+                          <input type="text" class="form-control" name="apellido" placeholder="Apellido Ej: Garcia" id="apellido">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-lg-2">Clasificacion</label>
+                      <div class="col-lg-10">
+                        <div class="input-group custom-search-form">
+                          <input type="text" class="form-control" placeholder="Clic en el boton buscar" name="clasificacion" id="clasificacion">
+                          <span class="input-group-btn">
+                          <button class="btn btn-info" type="button" id="clasificacionBoton">
+                          	<span class="glyphicon glyphicon-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Termina la primera columna md-6 -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label col-lg-2">Cargo</label>
+                      <div class="col-lg-10">
+                        <div class="input-group custom-search-form">
+                          <input type="text" class="form-control" placeholder="Clic en el boton buscar" name="cargo" id="cargo">
+                          <span class="input-group-btn">
+                          	<button class="btn btn-info" type="button" id="cargoBoton">
+                          		<span class="glyphicon glyphicon-search"></span>
+                          </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-lg-2">Dpto</label>
+                      <div class="col-lg-10">
+                        <div class="input-group custom-search-form">
+                          <input type="text" class="form-control" placeholder="Clic boton buscar" name="departamento" id="departamento">
+                          <span class="input-group-btn">
+                          	<button class="btn btn-info" type="button" id="departamentoBoton">
+                          		<span class="glyphicon glyphicon-search"></span>
+                          	</button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-lg-2">Fecha Ini</label>
+                      <div class="col-lg-10">
+                        <div class="input-group custom-search-form">
+                          <input type="text" class="form-control" placeholder="dd/mm/aaaa">
+                          <span class="input-group-btn">
+                          	<button class="btn btn-default" type="button" id="fechaInicio">
+                          		<span class="glyphicon glyphicon-calendar"></span>
+                          	</button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-lg-2">Fecha Fi.</label>
+                      <div class="col-lg-10">
+                        <div class="input-group custom-search-form">
+                          <input type="text" class="form-control" placeholder="dd/mm/aaaa">
+                          <span class="input-group-btn">
+                          	<button class="btn btn-default" type="button" id="fechaFin">
+                          		<span class="glyphicon glyphicon-calendar"></span>
+                          	</button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Termina la Segunda columna md-6 -->
+                </div>
+                <!--Termina el Row de las cajas de texto-->
+                <div class="row">
+                  <div class="col-md-offset-10">
+                    <div class="btn-group">
+                      <a class="btn btn-primary">Guardar</a>
+                      <a class="btn btn-danger">Cerrar</a>
+                    </div>
+                  </div>
+                </div>
+                <!--Termina el Row de los botones submit y limpiar-->
+              </form>
+            </div>
+            <div class="panel-footer">
+              <p id="panelDePiePagina">Panel Pie de Pagina</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

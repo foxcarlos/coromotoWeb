@@ -61,9 +61,10 @@ def index():
 def empleados():
     return template('CarnetPdfEmpleados')
 
-@get('/nempleados')
-def empleados():
-    return template('CarnetPdfEmpleados')
+@get('/noempleados')
+def noEmpleados():
+    valorPanelCabeceraTitulo = 'Carnet para No Empleados'
+    return template('noEmpleados', {'panelCabeceraTitulo':valorPanelCabeceraTitulo})
 
 @post('/empleados')
 def buscaCedulaFicha():
@@ -99,4 +100,4 @@ def buscaCedulaFicha():
 
     return template('CarnetPdfEmpleados', {'ficha':ficha, 'nombre':nombre, 'apellido':apellido, 'cargo':cargo, 'departamento':departamento, 'foto':foto})
 
-run(host='0.0.0.0', port=8080, server=GeventWebSocketServer, reload = True)
+run(host='0.0.0.0', port=8080, server=GeventWebSocketServer, reloader = True)
