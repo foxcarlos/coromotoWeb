@@ -10,6 +10,11 @@
 	 <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
 	 
 	 <script type="text/javascript">
+	
+	 /*$(document).ready(function(){
+   	cambiarPanelCabecera()
+		});*/
+	 
 	 window.onload = function(){
 	 	cambiarPanelCabecera()
 	 }
@@ -17,13 +22,13 @@
 	 	function cambiarPanelCabecera(){	 		
 			document.getElementById('H1PanelCabeceraRoja').innerHTML='{{get('panelCabeceraTitulo', '')}}';	 		
 	 		document.getElementById('H1PanelCabeceraRoja').style.fontWeight = "bold";
-			document.getElementById('H1PanelCabeceraRoja').style.fontSize = "20px";	 		 
+			document.getElementById('H1PanelCabeceraRoja').style.fontSize = "20px";
+			document.getElementById('H1PanelCabeceraRoja').style.textAlign="center"
 	 		document.getElementById('H1PanelCabeceraRoja').style.textShadow = "5px 5px 5px #1A1A1A";
 	 		document.getElementById('imagenCabecera').src = "{{get('imagenCabecera', '/static/file/img/placeholder-100x100.gif')}}"
 	 		
 	 	} 
 	 </script>
-	 
 	 
 	 <!-- Cambiarle el Color a la cabecera del Panel a ROJO -->	
 	<style type="text/css">
@@ -45,13 +50,13 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <img src="https://builder.divshot.com/img/placeholder-100x100.gif" id="imagenCabecera">
+          <img src="" id="imagenCabecera">
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
           <div class="panel panel-default">
-            <div class="panel-heading" centered-text>
+            <div class="panel-heading">
               <h1 id="H1PanelCabeceraRoja">Panel Cabecera</h1>
             </div>
             <div class="panel-body">
