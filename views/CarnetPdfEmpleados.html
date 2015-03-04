@@ -13,18 +13,45 @@
 	<script type="text/javascript">
 		
 	window.onload = function(){
-		document.getElementById("BotonDelante").onclick = clicBotonDelante;
+		//Le asigno una funcion al evento submit del formulario		
+		document.getElementById("buscarCarnet").onsubmit = submitDelForm;
+		
+		//Le asigno una funcion al evento click del boton
+		document.getElementById("formImprimirDelante").action="/delante";
+		document.getElementById("formImprimirDelante").method="POST";
+		document.getElementById("BotonDelante").type="submit";
+		//document.getElementById("BotonDelante").onsubmit = clicBotonDelante;
+		
+		//Le asigno una funcion al evento click del boton		
 		document.getElementById("BotonDetras").onclick = clicBotonDetras;
+		
+		//Le asigno una funcion la image donde va la foto		
 		document.getElementById("foto").onclick = clicEnFoto;
+		
+		//Inicializar los campos segun lo que se le pase desde python		
 		actualizarCampos();
+		
+		//Evento que se ejecuta cuando selecciono un archivo de la foto		
 		document.getElementById("archivoSeleccionado").onchange = clicEnSeleccionArchivo;		
-		//document.getElementById("botonModalCerrar").onclick = clicBotonModalCerrar;
-		//document.getElementById("botonModalGuardar").onclick = clicBotonModalGuardar;
+		
 	}
 
-	function clicBotonModalGuardar(){
-	//alert('Click')
-	document.getElementById("modalSubirFoto").onsubmit()		
+	function submitDelForm(){
+		/*Este Metodo permite validar
+		que un usuario no le de
+		clic en el boton buscar sin 
+		tener ningun parametro de busqueda */
+		
+		var nficha = document.getElementById('ficha').value;
+		var ncedula = document.getElementById('cedula').value;
+		
+		if (nficha.length == 0 && ncedula == 0){
+			alert('Ficha o Cedula debe contener datos');						
+			return false;
+		}
+		else{
+			return true;		
+		}
 	}
 		
 	function clicBotonModalCerrar(){
@@ -43,7 +70,10 @@
 	
 	function actualizarCampos(){
 		document.getElementById("foto").src="{{get('foto', '/static/file/img/placeholder-100x100.gif')}}"		
+		document.getElementById('ficha').value="{{get('ficha', '')}}"		
 		document.getElementById('ficha2').value="{{get('ficha', '')}}"
+		document.getElementById('cedula').value="{{get('cedula', '')}}"
+		document.getElementById('cedula2').value="{{get('cedula', '')}}"
 		document.getElementById('nombre2').value="{{get('nombre', '')}}"
 		document.getElementById('apellido').value="{{get('apellido', '')}}"
 		document.getElementById('cargo').value="{{get('cargo', '')}}"
@@ -119,19 +149,21 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="row">
+                    
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="control-label">Cedula</label>
                         <div class="controls">
-                          <input id="nombre" name="nombre" type="text" class="form-control">
+                          <input id="cedula" name="cedula" type="text" class="form-control">
                         </div>
                       </div>
                     </div>
+                    
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="control-label">Ficha</label>
                         <div class="controls">
-                          <input id="ficha" name="ficha" type="text" class="form-control" value="{{get('ficha', '')}}">
+                          <input id="ficha" name="ficha" type="text" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -143,13 +175,23 @@
                 <div class="col-xs-12">
                   <div class="btn-group">
                     <button id="submitBuscarControl" type="submit" class="btn btn-danger">Buscar</button>
-                    <button id="submitBuscarControl" type="reset" class="btn btn-warning">Limpiar</button>
+                    <button id="resetBuscarControl" type="reset" class="btn btn-warning">Limpiar</button>
                   </div>
                 </div>
               </div>
               </form>
               <hr>
-
+				  
+				  <!-- Segundo FORM-->
+				  <form id="formImprimirDelante" class="form" role="form" action="/delante" method="post">
+				  
+				  <div class="form-group">
+                <label class="control-label">Cedula</label>
+                <div class="controls">
+                  <input id="cedula2" name="cedula2" type="text" class="form-control">
+                </div>
+              </div>
+              
               <div class="form-group">
                 <label class="control-label">Ficha</label>
                 <div class="controls">
@@ -166,28 +208,29 @@
               <div class="form-group">
                 <label class="control-label">Apellido</label>
                 <div class="controls">
-                  <input id="apellido" type="text" class="form-control">
+                  <input id="apellido" name="apellido" type="text" class="form-control">
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label">Cargo</label>
                 <div class="controls">
-                  <input id="cargo" type="text" class="form-control">
+                  <input id="cargo" name="cargo" type="text" class="form-control">
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label">Departamento</label>
                 <div class="controls">
-                  <input id="departamento" type="text" class="form-control">
+                  <input id="departamento" name="departamento" type="text" class="form-control">
                 </div>
               </div>		
              			                				  
 				  <div class="form-group">                            	
                 	<div class="btn-group">
-							<a href="/delante" name="BotonDelante" class="btn btn-primary" id="BotonDelante">Imprimir Delante</a>
-							<a href="/detras" name="BotonDetras" class="btn btn-success" id="BotonDetras">Imprimir Detras</a>
+							<button name="BotonDelante" class="btn btn-primary" id="BotonDelante">Imprimir Delante</button>
+							<a href="/detras/11951" name="BotonDetras"  class="btn btn-success" id="BotonDetras">Imprimir Detras</a>
                 	</div>
-              </div>				                           
+              </div>
+              </form>				                           
             </div>
             <div class="panel-footer">
               <h3 class="panel-title">Hospital Coromoto <span class="Three-Dee pull-right">PDV Servicios de Salud</span></h3>

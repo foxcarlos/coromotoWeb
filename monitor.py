@@ -41,8 +41,36 @@ def do_upload():
         open_file.write(upload.file.read())
     return 'OK'
 
+@bottle.route('/delante', method='POST')
+def delante():
+    ficha = bottle.request.POST.get('ficha2')
+    nombre = bottle.request.POST.get('nombre2')
+    apellido = bottle.request.POST.get('apellido')
+    tipov = ''  # bottle.request.POST.get('nombre2')
+    cedula = bottle.request.POST.get('cedula2')
+    cargo = bottle.request.POST.get('cargo')
+    departamento = bottle.request.POST.get('departamento')
+
+    datos = ficha, apellido, nombre, tipov, cedula, cargo, departamento
+    print(datos)
+    pdfDelante = carnet.DelanteReportTablePDF(datos)
+    pdfDelante.imprimir()
+
+    pdfDetras = carnet.DetrasReportTablePDF(datos)
+    pdfDetras.imprimir()
+
+    #ficha2 = ficha
+    #archivo = "{0}_Delante.PDF".format(ficha2)
+
+    #redireccion apunta al metodo  detras que esta debajo de este metodo
+    redireccion1 = '/detras/{0}'.format(ficha)
+    redireccion = '/delante/{0}'.format(ficha)
+    bottle.redirect(redireccion)
+    bottle.redirect(redireccion1)
+    #return bottle.static_file(archivo, root='static/file/carnets/')
+
 @bottle.route('/delante/<ficha>')
-def delante(ficha='desconocido'):
+def delante2(ficha='desconocido'):
     ficha2 = ficha
     archivo = "{0}_Delante.PDF".format(ficha2)
     return bottle.static_file(archivo, root='static/file/carnets/')
@@ -74,31 +102,28 @@ def buscaCedulaFicha():
     fotoImg = ''
     rutaFotosE = 'static/file/fotose'
 
-    nombre = bottle.request.forms.get('nombre')
+    cedula = bottle.request.forms.get('cedula')
     ficha = bottle.request.forms.get('ficha')
 
     nxxMast = carnet.CrearNxxmast()
-    datos = nxxMast.buscarFicha(ficha)
+    datos = nxxMast.buscarFicha(ficha, cedula)
     ficha, apellido, nombre, tipov, cedula, cargo, departamento = datos
 
-    #Permite buscar el archivo de a foto del Empleado
+    #Permite buscar el archivo de la foto del Empleado
     #para devolver su nombre real
     listaArchivo = os.listdir(rutaFotosE)
+
     for f in listaArchivo:
-        if ficha in f:
+        if len(ficha)>=5 and ficha in f:
             fotoImg = f
+            print(f, fotoImg)
 
     foto = os.path.join(rutaFotosE, fotoImg)
     print(foto)
     if not os.path.isfile(foto):
         foto = ''
 
-    pdfDelante = carnet.DelanteReportTablePDF(datos)
-    pdfDelante.imprimir()
 
-    pdfDetras = carnet.DetrasReportTablePDF(datos)
-    pdfDetras.imprimir()
-
-    return template('CarnetPdfEmpleados', {'ficha':ficha, 'nombre':nombre, 'apellido':apellido, 'cargo':cargo, 'departamento':departamento, 'foto':foto})
+    return template('CarnetPdfEmpleados', {'ficha':ficha, 'cedula':cedula , 'nombre':nombre, 'apellido':apellido, 'cargo':cargo, 'departamento':departamento, 'foto':foto})
 
 run(host='0.0.0.0', port=8080, server=GeventWebSocketServer, reloader = True)
